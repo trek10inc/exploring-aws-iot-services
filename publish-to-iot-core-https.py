@@ -16,9 +16,9 @@ keepalive = 60
 IoT_protocol_name = "x-amzn-mqtt-ca"
 
 # certificate params
-certificate = "/data/dev/iot/aws-certs/trek10-cert.pem"
-private_key = "/data/dev/iot/aws-certs/trek10-priv-key.pem"
-ca_bundle = "/data/dev/iot/aws-certs/AmazonRootCA1.pem"
+certificate = "/path/to/aws-certs/trek10-cert.pem"
+private_key = "/path/to/aws-certs/trek10-priv-key.pem"
+ca_bundle = "/path/to/aws-certs/AmazonRootCA1.pem"
 #---------------------------------------------------------------
 
 # other misc settings

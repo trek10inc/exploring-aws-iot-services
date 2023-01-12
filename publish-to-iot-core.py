@@ -15,9 +15,9 @@ port = 8883
 keepalive = 60
 
 # certificate params
-certificate = "/data/dev/iot/aws-certs/trek10-cert.pem"
-private_key = "/data/dev/iot/aws-certs/trek10-priv-key.pem"
-ca_bundle = "/data/dev/iot/aws-certs/AmazonRootCA1.pem"
+certificate = "/path/to/aws-certs/trek10-cert.pem"
+private_key = "/path/to/aws-certs/trek10-priv-key.pem"
+ca_bundle = "/path/to/aws-certs/AmazonRootCA1.pem"
 #---------------------------------------------------------------
 
 # other misc settings
