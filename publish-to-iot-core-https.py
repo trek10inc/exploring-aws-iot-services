@@ -11,8 +11,9 @@ import traceback
 topic = "trek10/initial"
 client_id_prefix = "aws-trek10-thing-"
 broker = "d62tv5ad7ph83-ats.iot.us-west-1.amazonaws.com" 
-port = 8883
+port = 443
 keepalive = 60
+IoT_protocol_name = "x-amzn-mqtt-ca"
 
 # certificate params
 certificate = "/data/dev/iot/aws-certs/trek10-cert.pem"
@@ -21,7 +22,7 @@ ca_bundle = "/data/dev/iot/aws-certs/AmazonRootCA1.pem"
 #---------------------------------------------------------------
 
 # other misc settings
-device_id = randint(1, 3)
+device_id = randint(0, 3)
 client_id = client_id_prefix + str(device_id)
 
 # set min and max for each metric
@@ -47,11 +48,11 @@ barometer_max = 32.01
 max_change = 3
 
 paho_erro_codes = {0: "Connection successful",
-    1: "Connection refused - incorrect protocol version",
-    2: "Connection refused - invalid client identifier",
-    3: "Connection refused - server unavailable",
-    4: "Connection refused - bad username or password",
-    5: "Connection refused - not authorised",
+    1: "Connection refused – incorrect protocol version",
+    2: "Connection refused – invalid client identifier",
+    3: "Connection refused – server unavailable",
+    4: "Connection refused – bad username or password",
+    5: "Connection refused – not authorised",
     100: "Connection refused - other things"
 }
 
@@ -76,6 +77,17 @@ def publish(client):
         print("Published message: " + message)
     else:
         print("Failed to send message to topic " + topic)
+
+def ssl_alpn():
+    try:
+        ssl_context = ssl.create_default_context()
+        ssl_context.set_alpn_protocols([IoT_protocol_name])
+        ssl_context.load_verify_locations(cafile = ca_bundle)
+        ssl_context.load_cert_chain(certfile = certificate, keyfile = private_key)
+        return ssl_context
+
+    except Exception as e:
+        traceback.print_exc()
 
 if __name__ == '__main__':
     try:
@@ -207,11 +219,14 @@ if __name__ == '__main__':
         # print(f"msg = {message}")
 
         client = mqtt.Client(client_id)
-        client.tls_set(ca_certs = ca_bundle,
-            certfile = certificate,
-            keyfile = private_key,
-            cert_reqs = ssl.CERT_REQUIRED,
-            tls_version = ssl.PROTOCOL_TLSv1_2, ciphers=None)
+        ssl_context = ssl_alpn()
+        client.tls_set_context(context = ssl_context)
+
+        # client.tls_set(ca_certs = ca_bundle,
+        #     certfile = certificate,
+        #     keyfile = private_key,
+        #     cert_reqs = ssl.CERT_REQUIRED,
+        #     tls_version = ssl.PROTOCOL_TLSv1_2, ciphers=None)
 
         # to help with troubleshooting
         # client.on_log = on_log

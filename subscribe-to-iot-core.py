@@ -7,7 +7,7 @@ import traceback
 # important settings
 topic = "trek10/initial"
 client_id_prefix = "aws-trek10-thing-"
-broker = "a52tv5ff7ph83-ats.iot.us-west-1.amazonaws.com"
+broker = "d62tv5ad7ph83-ats.iot.us-west-1.amazonaws.com"
 port = 8883
 
 # certificate params
