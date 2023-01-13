@@ -3,7 +3,7 @@
 # general variables
 ACCOUNT_ID="111222333444"
 REGION="us-west-1"
-CERT_ARN="arn:aws:iot:${REGION}:${ACCOUNT_ID}:cert/f54e026bd11784c44fbe42d165ba168465a1b055aa9d113e3261f579c69aabaf"
+CERT_ARN="arn:aws:iot:${REGION}:${ACCOUNT_ID}:cert/d52b026bd11754c44fbe42d165ba168465a1b055aa9d113e3261f579c69aabaf"
 CERT_DIR="/data/dev/iot/aws-certs"
 CONFIG_FILE="config.json"
 CONFIG_FILE_S3_FOLDER="config"
